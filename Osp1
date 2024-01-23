@@ -1,79 +1,346 @@
 
-public class Employee 
+FCFS
+
+#include <stdio.h>
+
+struct Process {
+
+int pid; // Process ID
+
+int arrival; // Arrival time
+
+int burst; // Burst time
+
+};
+
+void fcfsScheduling(struct Process processes[], int n) {
+
+int currentTime = 0;
+
+printf("Process\tArrival Time\tBurst Time \tWaiting Time\tTurnaround Time\n");
+
+for (int i = 0; i < n; i++) {
+
+if (currentTime < processes[i].arrival) {
+
+currentTime = processes[i].arrival;
+
+}
+
+int waitingTime = currentTime - processes[i].arrival;
+
+int turnaroundTime = waitingTime + processes[i].burst;
+
+printf("%d\t%d\t\t%d\t\t%d\t\t%d\n", processes[i].pid, processes[i].arrival, processes[i].burst,
+
+waitingTime, turnaroundTime);
+
+currentTime += processes[i].burst;
+
+}
+
+}
+
+int main() {
+
+struct Process processes[] = {
+
+{1, 0, 6},
+
+{2, 2, 3},
+
+{3, 3, 8}
+
+};
+
+int n = sizeof(processes) / sizeof(processes[0]);
+
+fcfsScheduling(processes, n);
+
+return 0;
+
+}
+
+Make tweaks, leave comments and share with others to edit at the same time.
+NO, THANKSUSE THE APP
+
+PRG2
+
+BLDEA’S V. P. DR. P. G. HALAKATTI COLLEGE OF ENGINEERING AND TECHNOLOGY, VIJAYAPURA - 586 103
+
+DEPARTMENT OF INFORMATION SCIENCE & ENGINEERING
+
+2. Simulate the following CPU scheduling algorithms to find turnaround time and waiting time a) FCFS b) SJF c) Round Robin d) Priority.
+
+
+a. FCFS
+
+#include <stdio.h>
+
+struct Process {
+
+int pid; // Process ID
+
+int arrival; // Arrival time
+
+int burst; // Burst time
+
+};
+
+void fcfsScheduling(struct Process processes[], int n) {
+
+int currentTime = 0;
+
+printf("Process\tArrival Time\tBurst Time \tWaiting Time\tTurnaround Time\n");
+
+for (int i = 0; i < n; i++) {
+
+if (currentTime < processes[i].arrival) {
+
+currentTime = processes[i].arrival;
+
+}
+
+int waitingTime = currentTime - processes[i].arrival;
+
+int turnaroundTime = waitingTime + processes[i].burst;
+
+printf("%d\t%d\t\t%d\t\t%d\t\t%d\n", processes[i].pid, processes[i].arrival, processes[i].burst,
+
+waitingTime, turnaroundTime);
+
+currentTime += processes[i].burst;
+
+}
+
+}
+
+int main() {
+
+struct Process processes[] = {
+
+{1, 0, 6},
+
+{2, 2, 3},
+
+{3, 3, 8}
+
+};
+
+int n = sizeof(processes) / sizeof(processes[0]);
+
+fcfsScheduling(processes, n);
+
+return 0;
+
+}
+
+
+
+
+
+
+b. SJF
+
+#include <stdio.h>
+
+struct Process {
+
+int pid; // Process ID
+
+int burst; // Burst time
+
+};
+
+void findWaitingTime(struct Process proc[], int n, int wt[]) {
+
+wt[0] = 0;
+
+for (int i = 1; i < n; i++) {
+
+wt[i] = proc[i - 1].burst + wt[i - 1];
+
+}
+
+}
+
+void findTurnAroundTime(struct Process proc[], int n, int wt[], int tat[]) {
+
+for (int i = 0; i < n; i++) {
+
+tat[i] = proc[i].burst + wt[i];
+
+}
+
+}
+
+void findAverageTime(struct Process proc[], int n) {
+
+int wt[n], tat[n];
+
+findWaitingTime(proc, n, wt);
+
+findTurnAroundTime(proc, n, wt, tat);
+
+float total_wt = 0, total_tat = 0;
+
+printf("Process\tBurst Time\tWaiting Time\tTurnaround Time\n");
+
+for (int i = 0; i < n; i++) {
+
+total_wt += wt[i];
+
+total_tat += tat[i];
+
+printf("%d\t%d\t\t%d\t\t%d\n", proc[i].pid, proc[i].burst, wt[i], tat[i]);
+
+}
+
+printf("Average waiting time = %.2f\n", (float)total_wt / n);
+
+printf("Average turnaround time = %.2f\n", (float)total_tat / n);
+
+}
+
+void sortProcesses(struct Process proc[], int n) {
+
+// Implement a simple sorting algorithm (e.g., Bubble Sort) based on burst time
+
+for (int i = 0; i < n - 1; i++) {
+
+for (int j = 0; j < n - i - 1; j++) {
+
+if (proc[j].burst > proc[j + 1].burst) {
+
+struct Process temp = proc[j];
+
+proc[j] = proc[j + 1];
+
+proc[j + 1] = temp;
+
+}
+
+}
+
+}
+
+}
+
+int main()
+
 {
-	private String firstName; // instance variable that stores the first name
-	private String lastName; // instance variable that stores the last name
-	private double monthlySalary; // instance variable
-	// constructor initializes firstName, lastName and monthlySalary with String and double supplied as argument
-	public Employee (String fname, String lname, double msalary)
-	{
-		firstName = fname; // initialize firstName
-		lastName = lname; // initialize lastName
-		monthlySalary = msalary; // initialize monthlySalary
-			// if the monthly salary is not positive, set it to 0.0.
-		if (msalary < 0.0)
-			monthlySalary = 0.0;
-	} // end constructor
-		// method to set the first name
-	public void setFirstName (String fname)
-	{
-		firstName = fname;	// store the first name
-		
-	} // end method setFirstName
-	// method to retrieve first name
-	public String getFirstName ()
-	{
-		return firstName;
-	} // end method getFirstName
-	// method to set the last name
-	public void setLastName (String lname)
-	{
-		lastName = lname;	// store the last name
-	} // end method setLastName
-	
-	// method to retrieve last name
-	public String getLastName ()
-	{
-		return lastName;
-	} // end method getLastName
-	// method to set the monthly salary
-	public void setMonthlySalary (double msalary)
-	{
-		monthlySalary = msalary;	// store the monthly salary
-	} // end method setMonthlySalary
-	// method to retrieve monthly salary
-	public double getMonthlySalary ()
-	{
-		return monthlySalary;
-	} // end method getMonthlySalary
-	// method to retrieve yearly salary
-	public double getYearlySalary()
-	{
-		double yearlySalary = monthlySalary * 12;
-		return yearlySalary;
-	} // end method getYearlySalary
-	// method to retrieve yearly salary after giving 10% raise
-	public double getRaiseSalary()
-	{
-		double raise =  monthlySalary * 0.1 ;
-		double raiseSalary = ( monthlySalary + raise ) * 12;
-		return raiseSalary;
-	} // end method getRaiseSalary
-	public class EmployeeTest 
-{
-	// main method begins program execution
-	public static void main(String[] args) 
-	{
-		Employee emp1 = new Employee( "John", "Smith", 5000.00 );
-		Employee emp2 = new Employee( "Jane", "Doe", 8000.00 );
-// display employee's initial yearly salary
-	System.out.printf( "Yearly salary of %s %s: %.2f\n", emp1.getFirstName(), emp1.getLastName(), emp1.getYearlySalary() );
-System.out.printf( "Yearly salary of %s %s: %.2f\n", emp2.getFirstName(), emp2.getLastName(), emp2.getYearlySalary() );
-               System.out.println();
-  // display employee's salary after giving 10% raise
-System.out.println( "***** Giving 10% raise for each employee *****" );
-System.out.printf( "Yearly salary of %s %s: %.2f\n", emp1.getFirstName(),                            emp1.getLastName(), emp1.getRaiseSalary() );
-System.out.printf( "Yearly salary of %s %s: %.2f\n", emp2.getFirstName(), emp2.getLastName(), emp2.getRaiseSalary() );
-	} // end method main
-} // end EmployeeTest
-} // end class Employee
+
+int n;
+
+printf("Enter the number of processes: ");
+
+scanf("%d", &n);
+
+struct Process proc[n];
+
+for (int i = 0; i < n; i++) {
+
+proc[i].pid = i + 1;
+
+printf("Enter burst time for process %d: ", i + 1);
+
+scanf("%d", &proc[i].burst);
+
+}
+
+sortProcesses(proc, n);
+
+findAverageTime(proc, n);
+
+return 0;
+
+}
+
+c. Round Robin
+
+#include <stdio.h>
+
+struct Process {
+
+int pid; // Process ID
+
+int burst; // Burst time
+
+};
+
+void roundRobinScheduling(struct Process processes[], int n, int timeQuant {
+
+int remaining[n];
+
+int currentTime = 0;
+
+for (int i = 0; i < n; i++) {
+
+remaining[i] = processes[i].burst;
+
+}
+
+while (1) {
+
+int allDone = 1; // Flag to check if all processes are completed
+
+for (int i = 0; i < n; i++) {
+
+if (remaining[i] > 0) {
+
+allDone = 0;
+
+if (remaining[i] > timeQuantum) {
+
+currentTime += timeQuantum;
+
+remaining[i] -= timeQuantum;
+
+printf("Process %d executed for time quantum %d\n", processes[i].pid, timeQuantum);
+
+} else {
+
+currentTime += remaining[i];
+
+remaining[i] = 0;
+
+printf("Process %d executed for remaining time %d\n", processes[i].pid, remaining[i]);
+
+}
+
+}
+
+}
+
+if (allDone)
+
+break;
+
+}
+
+}
+
+int main() {
+
+struct Process processes[] = {
+
+{1, 10},
+
+{2, 5},
+
+{3, 8},
+
+{4, 12}
+
+};
+
+int n = sizeof(processes) / sizeof(processes[0]);
+
+int timeQuantum = 4;
+
+roundRobinScheduling(processes, n, timeQuantum);
+
+return 0;
+
+}
+
