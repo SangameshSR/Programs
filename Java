@@ -12,9 +12,6 @@ class Basicprograms{
         //7//System.out.println(lcm(8, 6));
        //8// System.out.println(leapYear(2032));
        //9//System.out.println(largestNum(4,8,1));
-
-
-    
     }
 
     //1 //reverse a String
