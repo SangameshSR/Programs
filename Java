@@ -1,1 +1,120 @@
+class Basicprograms{
+    public static void main(String args[]){
+        Basicprograms obj=new Basicprograms();
 
+        // String reversed = obj.reverse("Hello");
+        //1//System.out.println("Reversed string: " + reversed);
+        //2//Basicprograms.fibonacciSeries(10);
+        //3//Basicprograms.countDigits(12345);
+        //4//System.out.println(obj.isPrime(18));
+        //5//System.out.println(Basicprograms.isAmastrong(370));
+        //6//System.out.println(gcd(18,12));
+        //7//System.out.println(lcm(8, 6));
+       //8// System.out.println(leapYear(2032));
+       //9//System.out.println(largestNum(4,8,1));
+
+
+    
+    }
+
+    //1 //reverse a String
+public String reverse(String str){
+   String rev="";
+   for(int i=str.length()-1;i>=0;i--){
+    rev=rev+str.charAt(i);
+   } 
+   return rev;
+}
+
+//2 //fibonacci series
+public static void fibonacciSeries(int n){
+    int a=1,b=0;
+    System.out.print("Fibonacci series: ");
+    for(int i=0;i<n;i++){
+        System.out.print(b+" ");
+        int c=a+b;
+        a=b;
+        b=c;
+    }
+    System.out.println();
+}
+//3 //count digits in a number
+public static void countDigits(int num){
+    int count=0;
+    while(num!=0){
+        num=num/10;
+        count++;
+    }
+    System.out.println("Number of digits: "+count);
+
+
+}
+
+//4//IsPrime number
+public boolean isPrime(int n ){
+
+    if(n<=1)return false;
+
+   
+        for(int i=2;i<=n/2;i++){
+            if(n%i==0) return false;
+        }
+    return true;
+
+}
+
+//5//amastrong number
+public static boolean isAmastrong(int n){
+
+  int original=n;
+  int sum=0;
+  while(n!=0){
+            int digit=n%10;
+            sum=sum+(digit*digit*digit);
+            n=n/10;
+            }
+    if(original==sum)return true;
+    else{ 
+        return false;
+    }
+
+}
+//6//GCD of Two number
+public static int gcd(int a,int b){
+    while(b!=0){
+        int reminder=a%b;
+        a=b;
+        b=reminder;
+    }
+    return a;
+
+    
+}
+//7//LCM of two number
+public static int lcm(int a  ,int b){
+    
+    int lcm=(a*b)/gcd(a,b);
+    return lcm;
+
+}
+
+//8//check Leap Year
+public static boolean leapYear(int year){
+if((year%400==0)||(year%4==0)&&(year%100!=0)){
+    return true;
+}
+else{
+    return false;
+}
+}
+//9//largest of three
+public static int largestNum(int a,int b, int c){
+    if(a>b&&a>c)return a;
+    else if(b>a&&b>c)return b;
+    else{
+        return c;
+    }
+    
+
+}
+}
